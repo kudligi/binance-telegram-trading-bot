@@ -9,7 +9,8 @@ import json
 def alert(request):
     alert = json.loads(request.body)
     print("got an alert ", alert)
-    return HttpResponse("")
+    return HttpResponse(alert)
+    
 
 @require_GET
 def ping(request):

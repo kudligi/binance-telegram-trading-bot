@@ -5,6 +5,8 @@ from django.contrib import admin
 admin.autodiscover()
 
 import hello.views
+import webhook.views
+import telegram.views
 
 # To add a new path, first import the app:
 # import blog
@@ -18,5 +20,6 @@ urlpatterns = [
     path("", hello.views.index, name="index"),
     path("db/", hello.views.db, name="db"),
     path("admin/", admin.site.urls),
-    path('alerts/', include('webhook.urls'))
+    path('alert/', webhook.views.alert, name="alert"),
+    path('hook/', telegram.views.talkin_to_me_bruh, name="bot-hook")
 ]
