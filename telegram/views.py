@@ -37,12 +37,14 @@ def check_user_exists(id):
 
 def create_user_that_knows(id, name):
     if (not check_user_exists(id)):
-        user = new User(chat_id=id, username = "name", knows= True)
+        user = User(chat_id=id, username = "name", knows= True)
+        user.save()
     send_message(id, "youre cool")
 
 def create_user_that_doesnt(id, name):
     if (not check_user_exists(id)):
-        user = new User(chat_id=id, username = "name", knows= False)
+        user = User(chat_id=id, username = "name", knows= False)
+        user.save()
         send_message(id, "Sorry I dint want to talk to you!")
     else:
         send_message(id, "wanna fight {}?".format(name))
