@@ -39,6 +39,10 @@ def create_user_that_knows(id, name):
     if (not check_user_exists(id)):
         user = User(chat_id=id, username = "name", knows= True)
         user.save()
+    else:
+        user = User.objects.get(chat_id = id)
+        user.knows = True
+        user.save()
     send_message(id, "youre cool")
 
 def create_user_that_doesnt(id, name):
@@ -52,7 +56,7 @@ def create_user_that_doesnt(id, name):
 
 def send_message(id, text):
     data = {
-        "id": id,
+        "chat_id": id,
         "text": text 
     }
     requests.post(BOT_SEND_URL, json=data)
