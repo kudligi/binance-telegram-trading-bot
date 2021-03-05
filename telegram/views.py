@@ -53,7 +53,7 @@ def create_user_that_doesnt(id, name):
 def send_message(id, text):
     data = {
         "id": id,
-        "text": test 
+        "text": text 
     }
     requests.post(BOT_SEND_URL, json=data)
         
