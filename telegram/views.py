@@ -2,6 +2,9 @@ from django.shortcuts import render
 from django.views.decorators.http import require_POST
 import requests
 from .cred import BOT_SEND_URL
+from .models import User
+
+
 
 from django.http import HttpResponse
 import json
@@ -25,5 +28,18 @@ def talkin_to_me_bruh(request):
     print("Telegram request was ", msg)
     return HttpResponse('OK')
 
+def handle(data):
+    msg = data["text"].lower()
+    if msg == "iabpw":
+        create_user_that_knows(id, name)
+    else:
+        create_user_that_doesnt(id, name)
 
+def check_user_exists(id):
+
+
+def create_user_that_knows(id, name):
+
+
+    
     
