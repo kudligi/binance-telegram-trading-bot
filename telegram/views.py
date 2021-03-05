@@ -28,17 +28,17 @@ def talkin_to_me_bruh(request):
     print("Telegram request was ", msg)
     return HttpResponse('OK')
 
-def handle(data):
-    msg = data["text"].lower()
-    if msg == "iabpw":
-        create_user_that_knows(id, name)
-    else:
-        create_user_that_doesnt(id, name)
+# def handle(data):
+#     msg = data["text"].lower()
+#     if msg == "iabpw":
+#         create_user_that_knows(id, name)
+#     else:
+#         create_user_that_doesnt(id, name)
 
-def check_user_exists(id):
+# def check_user_exists(id):
+#     users =  
 
-
-def create_user_that_knows(id, name):
+# def create_user_that_knows(id, name):
 
 
     
