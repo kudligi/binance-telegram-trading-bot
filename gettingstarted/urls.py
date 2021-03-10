@@ -22,6 +22,6 @@ urlpatterns = [
     path("db/", hello.views.db, name="db"),
     path("admin/", admin.site.urls),
     path('alert/', webhook.views.alert, name="alert"),
-    path('hook/', telegram.views.talkin_to_me_bruh, name="bot-hook")
+    path('hook/', telegram.views.talkin_to_me_bruh, name="bot-hook"),
     path('order/', oms.views.place_order, name="place order")
 ]

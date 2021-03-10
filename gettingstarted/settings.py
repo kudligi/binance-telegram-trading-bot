@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "webhook",
     "telegram",
     "oms",
+    'django_fsm',
 ]
 
 MIDDLEWARE = [
