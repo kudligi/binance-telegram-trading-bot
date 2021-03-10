@@ -2,4 +2,4 @@ django
 gunicorn
 django-heroku
 requests
-python-telegram-bot
+python-binance

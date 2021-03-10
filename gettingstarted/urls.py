@@ -7,6 +7,7 @@ admin.autodiscover()
 import hello.views
 import webhook.views
 import telegram.views
+import oms.views
 
 # To add a new path, first import the app:
 # import blog
@@ -22,4 +23,5 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path('alert/', webhook.views.alert, name="alert"),
     path('hook/', telegram.views.talkin_to_me_bruh, name="bot-hook")
+    path('order/', oms.views.place_order, name="place order")
 ]
