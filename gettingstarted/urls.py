@@ -23,5 +23,5 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path('alert/', webhook.views.alert, name="alert"),
     path('hook/', telegram.views.talkin_to_me_bruh, name="bot-hook"),
-    path('order/', oms.views.place_order, name="place order")
+    path('binance/', include('oms.urls'))
 ]

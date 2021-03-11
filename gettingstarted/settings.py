@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "telegram",
     "oms",
     'django_fsm',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [

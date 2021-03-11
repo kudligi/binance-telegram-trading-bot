@@ -18,7 +18,8 @@ class LimitOrder(models.Model):
         ("SELL", "SELL")
     ]
     id = models.AutoField(primary_key=True)
-    order_id = models.CharField(max_length=100,unique=True)
+    order_id = models.CharField(max_length=100,unique=True,null=False, blank=False)
+    clientOrderId = models.CharField(max_length=100,unique=True,null=False, blank=False)
     price = models.DecimalField(max_digits=20, decimal_places=10,null=False, blank=False)
     amount = models.DecimalField(max_digits=20, decimal_places=10, default=0)
     quantity = models.DecimalField(max_digits=20, decimal_places=10,null=False, blank=False)

@@ -4,3 +4,5 @@ django-heroku
 requests
 python-binance
 django-fsm
+djangorestframework
+rq

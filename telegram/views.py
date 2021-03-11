@@ -45,9 +45,14 @@ def create_user_that_knows(id, name):
         user.save()
     send_message(id, "youre cool")
 
+def notify_users(msg):
+    users = User.objects.filter(knows=True)
+    for user in users:
+        send_message(user.chat_id, msg)
+
 def create_user_that_doesnt(id, name):
     if (not check_user_exists(id)):
-        user = User(chat_id=id, username = "name", knows= False)
+        user = User(chat_id=id, username = name, knows= False)
         user.save()
         send_message(id, "Sorry I dint want to talk to you!")
     else:
