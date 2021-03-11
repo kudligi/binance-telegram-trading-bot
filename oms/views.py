@@ -30,7 +30,8 @@ def place_order(request):
         # req["price"] = str(req["price"])
         res["details"] = "Validation passed"
         res["order_response"] = Butil.place_order(req)
-    notify_users(json.dumps(res, indent=True))
+    q = Queue(connection=conn)
+    q.enqueue(notify_users, json.dumps(res, indent=True))
     return JsonResponse(res, status=status_code)
 
 @require_GET
@@ -39,7 +40,8 @@ def get_open_orders(request, symbol):
     status_code = status.HTTP_200_OK
     # res["orders"] = symbol
     res["orders"] = Butil.get_open_orders(symbol)
-    notify_users(json.dumps(res, indent=True))
+    q = Queue(connection=conn)
+    q.enqueue(notify_users, json.dumps(res, indent=True))
     return JsonResponse(res, status=status_code)
 
 @require_GET
@@ -48,7 +50,8 @@ def get_account_info(request):
     status_code = status.HTTP_200_OK
     # res["orders"] = symbol
     res["info"] = Butil.account_info()
-    notify_users(json.dumps(res, indent=True))
+    q = Queue(connection=conn)
+    q.enqueue(notify_users, json.dumps(res, indent=True))
     return JsonResponse(res, status=status_code)
 
 @require_POST
@@ -61,7 +64,8 @@ def cancel_order(request):
         res["details"] = "Invalid request body"
     # res["orders"] = symbol
     res["cancel_receipt"] = Butil.cancel_order(req["symbol"], req["orderID"])
-    notify_users(json.dumps(res, indent=True))
+    q = Queue(connection=conn)
+    q.enqueue(notify_users, json.dumps(res, indent=True))
     return JsonResponse(res, status=status_code)
 
 @require_GET
@@ -75,5 +79,5 @@ def get_all_orders_db(request):
     orders = LimitOrder.objects.all()
     res["orders"] = json.loads(serializers.serialize('json', orders))
     q = Queue(connection=conn)
-    q.enqueue(notify_users(json.dumps(res, indent=True)))
+    q.enqueue(notify_users, json.dumps(res, indent=True))
     return JsonResponse(res, status=status_code)
