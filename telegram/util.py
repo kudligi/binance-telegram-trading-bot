@@ -34,13 +34,16 @@ def handle_pwd(id, name):
     except (User.DoesNotExist):
         user = User(chat_id=id, username = name, knows= True)
         user.save()
-    message = choice(PASS).substitute(name)
+    message = choice(PASS).substitute(name=name)
     send_message(id, message)
 
 def respond(id, name):
     try: 
         user = User.objects.get(chat_id=id)
-        send_message = choice(RANDOM)
+        message = choice(RANDOM)
+        send_message(id, message)
     except (User.DoesNotExist):
         user = User(chat_id=id, username = name, knows= False)
         user.save()
+        message = choice(FIGHT)
+        send_message(id, message)
