@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "webhook",
     "telegram",
     "oms",
+    "bots",
     'django_fsm',
     'rest_framework',
 ]

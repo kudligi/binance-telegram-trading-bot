@@ -12,12 +12,13 @@ def send_message(id, text):
         "chat_id": id,
         "text": text
     }
-    return requests.post(bot_url, json=data)
+    requests.post(bot_url, json=data)
 
 def notify_all_in_the_know(msg):
-    users = User.objects.filter(knows=True)
+    users = User.objects.all().filter(knows=True)
     for user in users:
         send_message(user.chat_id, msg)
+        print()
 
 def handle_incoming_message(id, name, text):
     text = text.lower()
@@ -31,6 +32,7 @@ def handle_pwd(id, name):
     try: 
         user = User.objects.get(chat_id=id)
         user.knows = True
+        user.save()
     except (User.DoesNotExist):
         user = User(chat_id=id, username = name, knows= True)
         user.save()

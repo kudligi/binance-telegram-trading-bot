@@ -21,6 +21,7 @@ urlpatterns = [
     path("", hello.views.index, name="index"),
     path("db/", hello.views.db, name="db"),
     path("admin/", admin.site.urls),
+    path("ping/", webhook.views.ping),
     path('alert/', webhook.views.alert, name="alert"),
     path('hook/', telegram.views.talkin_to_me_bruh, name="bot-hook"),
     path('binance/', include('oms.urls'))
