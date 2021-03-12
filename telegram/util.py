@@ -1,7 +1,7 @@
 import requests
 import os 
 from .models import User
-from responses import *
+from .responses import *
 from random import choice
 
 bot_url = os.environ.get('BOT_SEND_URL')
