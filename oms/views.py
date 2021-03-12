@@ -11,7 +11,7 @@ from worker import conn
 from . import validators
 from . import binance_util as Butil
 from .models import LimitOrder 
-from telegram.util import notify_users
+from telegram.util import notify_all_in_the_know
 
 # Create your views here.
 @require_POST
@@ -31,7 +31,7 @@ def place_order(request):
         res["details"] = "Validation passed"
         res["order_response"] = Butil.place_order(req)
     q = Queue(connection=conn)
-    q.enqueue(notify_users, json.dumps(res, indent=True))
+    q.enqueue(notify_all_in_the_know, json.dumps(res, indent=True))
     return JsonResponse(res, status=status_code)
 
 @require_GET
@@ -41,7 +41,7 @@ def get_open_orders(request, symbol):
     # res["orders"] = symbol
     res["orders"] = Butil.get_open_orders(symbol)
     q = Queue(connection=conn)
-    q.enqueue(notify_users, json.dumps(res, indent=True))
+    q.enqueue(notify_all_in_the_know, json.dumps(res, indent=True))
     return JsonResponse(res, status=status_code)
 
 @require_GET
@@ -51,7 +51,7 @@ def get_account_info(request):
     # res["orders"] = symbol
     res["info"] = Butil.account_info()
     q = Queue(connection=conn)
-    q.enqueue(notify_users, json.dumps(res, indent=True))
+    q.enqueue(notify_all_in_the_know, json.dumps(res, indent=True))
     return JsonResponse(res, status=status_code)
 
 @require_POST
@@ -65,7 +65,7 @@ def cancel_order(request):
     # res["orders"] = symbol
     res["cancel_receipt"] = Butil.cancel_order(req["symbol"], req["orderID"])
     q = Queue(connection=conn)
-    q.enqueue(notify_users, json.dumps(res, indent=True))
+    q.enqueue(notify_all_in_the_know, json.dumps(res, indent=True))
     return JsonResponse(res, status=status_code)
 
 @require_GET
@@ -79,5 +79,5 @@ def get_all_orders_db(request):
     orders = LimitOrder.objects.all()
     res["orders"] = json.loads(serializers.serialize('json', orders))
     q = Queue(connection=conn)
-    q.enqueue(notify_users, json.dumps(res, indent=True))
+    q.enqueue(notify_all_in_the_know, json.dumps(res, indent=True))
     return JsonResponse(res, status=status_code)
