@@ -11,7 +11,7 @@ from worker import conn
 from . import validators
 from . import binance_util as Butil
 from .models import LimitOrder 
-from telegram.views import notify_users
+from telegram.util import notify_users
 
 # Create your views here.
 @require_POST
