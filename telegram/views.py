@@ -3,6 +3,7 @@ from django.views.decorators.http import require_POST
 import requests
 from .cred import BOT_SEND_URL
 from .models import User
+from . import util
 
 
 
@@ -17,55 +18,7 @@ def talkin_to_me_bruh(request):
     id = msg['message']['chat']['id']
     name = msg['message']["chat"]["first_name"]
     msg = msg['message']['text']
-    handle(id, name, msg)
+    util.handle_incoming_message(id, name, msg)
     print("Telegram request was ", msg)
     return HttpResponse('OK')
 
-def handle(id, name, text):
-    msg = text.lower()
-    if msg == "iabpw":
-        create_user_that_knows(id, name)
-    else:
-        create_user_that_doesnt(id, name)
-
-def check_user_exists(id):
-    try:
-        user = User.objects.get(chat_id=id)
-        return True
-    except (User.DoesNotExist):
-        return False
-
-def create_user_that_knows(id, name):
-    if (not check_user_exists(id)):
-        user = User(chat_id=id, username = "name", knows= True)
-        user.save()
-    else:
-        user = User.objects.get(chat_id = id)
-        user.knows = True
-        user.save()
-    send_message(id, "youre cool")
-
-def notify_users(msg):
-    users = User.objects.filter(knows=True)
-    for user in users:
-        send_message(user.chat_id, msg)
-
-def create_user_that_doesnt(id, name):
-    if (not check_user_exists(id)):
-        user = User(chat_id=id, username = name, knows= False)
-        user.save()
-        send_message(id, "Sorry I dint want to talk to you!")
-    else:
-        send_message(id, "wanna fight {}?".format(name))
-        send_message(id, "Imma whoop your ass!!")
-
-def send_message(id, text):
-    data = {
-        "chat_id": id,
-        "text": text 
-    }
-    requests.post(BOT_SEND_URL, json=data)
-        
-
-    
-    
