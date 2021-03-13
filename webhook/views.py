@@ -10,7 +10,7 @@ from rq import Queue
 from worker import conn
 
 
-from . import binance_util as Butil
+from oms import binance_util as Butil
 from .models import LimitOrder 
 from telegram.util import notify_all_in_the_know
 
