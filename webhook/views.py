@@ -3,7 +3,7 @@ from django.http import HttpResponse, JsonResponse
 from django.views.decorators.http import require_POST, require_GET
 from rest_framework import status
 import os, json    
-import Decimal
+from decimal import *
 
 
 from rq import Queue
