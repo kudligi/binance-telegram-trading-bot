@@ -27,7 +27,7 @@ def alert(request):
         'side' : alert['action']
     }
     
-    response = Butil.place_order(req)
+    response = Butil.place_order(order)
     q = Queue(connection=conn)
     q.enqueue(notify_all_in_the_know, json.dumps(response, indent=True))
     return HttpResponse("ok")
