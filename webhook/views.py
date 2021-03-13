@@ -11,7 +11,7 @@ from worker import conn
 
 
 from oms import binance_util as Butil
-from .models import LimitOrder 
+from oms.models import LimitOrder 
 from telegram.util import notify_all_in_the_know
 
 
