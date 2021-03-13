@@ -22,7 +22,7 @@ def alert(request):
     print("got an alert ", alert)
     order = {
         'price' : Decimal(alert["price"]).quantize(Decimal('.0001'), rounding=ROUND_DOWN),
-        'qty' : Decimal('0.0002'),
+        'qty' : Decimal(alert['qty']),
         'symbol' : alert['ticker'],
         'side' : alert['action']
     }
