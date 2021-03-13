@@ -21,10 +21,10 @@ def alert(request):
     alert = json.loads(request.body)
     print("got an alert ", alert)
     order = {
-        'price' = Decimal(alert["price"]).quantize(Decimal('.0001'), rounding=ROUND_DOWN),
-        'qty' = Decimal('0.00015'),
-        'symbol' = alert['ticker'],
-        'side' = alert['side']
+        'price' : Decimal(alert["price"]).quantize(Decimal('.0001'), rounding=ROUND_DOWN),
+        'qty' : Decimal('0.00015'),
+        'symbol' : alert['ticker'],
+        'side' : alert['side']
     }
     
     response = Butil.place_order(req)
