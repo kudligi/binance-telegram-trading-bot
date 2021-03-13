@@ -1,7 +1,18 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.views.decorators.http import require_POST, require_GET
-import json
+from rest_framework import status
+import os, json    
+import Decimal
+
+
+from rq import Queue
+from worker import conn
+
+
+from . import binance_util as Butil
+from .models import LimitOrder 
+from telegram.util import notify_all_in_the_know
 
 
 # Create your views here.
@@ -9,7 +20,17 @@ import json
 def alert(request):
     alert = json.loads(request.body)
     print("got an alert ", alert)
-    return HttpResponse(alert)
+    order = {
+        'price' = Decimal(alert["price"]).quantize(Decimal('.0001'), rounding=ROUND_DOWN),
+        'qty' = Decimal('0.00015'),
+        'symbol' = alert['ticker'],
+        'side' = alert['side']
+    }
+    
+    response = Butil.place_order(req)
+    q = Queue(connection=conn)
+    q.enqueue(notify_all_in_the_know, json.dumps(response, indent=True))
+    return HttpResponse("ok")
     
 
 @require_GET
